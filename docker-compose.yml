@@ -2,30 +2,26 @@ version: '3'
 services:
   api:
     container_name: fastAPI
-    build:
-      context: .
-      dockerfile: Dockerfile
     restart: on-failure
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 100M
-        reservations:
-          cpus: '0.5'
-          memory: 100M
     ports:
       - target: 4343
         published: 8080
         protocol: tcp
         mode: host
+    build:
+      context: .
+        # dockerfile: Dockerfile
+      dockerfile: Dockerfile.pipenv
+        # deploy:
+        #   resources:
+        #     limits:
+        #       cpus: '0.5'
+        #     memory: 100M
+        #   reservations:
+        #     cpus: '0.5'
+        #     memory: 100M
 
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 1m30s
-      timeout: 10s
-      retries: 2
-      start_period: 10s
+
 
 
 
